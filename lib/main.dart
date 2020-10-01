@@ -1,10 +1,16 @@
 import 'package:awesome_button/awesome_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MaterialApp(
-      title: "Body Mass Index Calculator",
-      home: App(),
-    ));
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(systemNavigationBarColor: Color.fromARGB(255, 40, 43, 58),
+  statusBarColor: Color.fromARGB(255, 40, 43, 58)));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: "Body Mass Index Calculator",
+    home: App(),
+  ));
+}
 
 class App extends StatefulWidget {
   @override
@@ -54,28 +60,26 @@ class _AppState extends State<App> {
 
   void deleteDigit() {
     if (active == 1) {
-      weight = (weight / 10) as int;
+      weight = (weight / 10).toInt();
     } else if (active == 2) {
-      height = (height / 10) as int;
+      height = (height / 10).toInt();
     }
   }
 
   void calculateBMI() {
     setState(() {
-      bmi = num.parse(((weight / (height * height)) * 10000).toStringAsFixed(1));
+      bmi =
+          num.parse(((weight / (height * height)) * 10000).toStringAsFixed(1));
       if (bmi < 18.5) {
         status = "Underweight";
         statusColor = Colors.red;
-      }
-      else if (bmi >=18.5 && bmi <= 24.9) {
+      } else if (bmi >= 18.5 && bmi <= 24.9) {
         status = "Normal";
         statusColor = Colors.green;
-      }
-      else if (bmi >= 25 && bmi < 30.0) {
+      } else if (bmi >= 25 && bmi < 30.0) {
         status = "Overweight";
         statusColor = Colors.red;
-      }
-      else {
+      } else {
         status = "Obese";
         statusColor = Colors.red;
       }
